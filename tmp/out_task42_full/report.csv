@@ -1,4 +1,0 @@
-id,name,category,status,parsed_fields_count,warnings,raw_snippet
-28274,Produkt A,NUTRITION,OK,7,all_checks_passed,Energie 400 kJ 96 kcal Fett 2 g Kohlenhydrate 10 g Zucker 5 g Eiweiss 3 g Salz 0.4 g
-A7,Produkt B,NUTRITION,OK,7,all_checks_passed,Energie 500 kJ 120 kcal Fett 5 g Kohlenhydrate 12 g Zucker 7 g Eiweiss 4 g Salz 0.6 g
-1005,Produkt C,NUTRITION,NEEDS_REVIEW,1,minimal_profile_energy_only,Brennwert 300 kJ

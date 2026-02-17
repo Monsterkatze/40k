@@ -18,6 +18,11 @@ BACKGROUND_COLOR = "white"
 TEXT_COLOR = "black"
 PLACEHOLDER_VALUE = "—"
 JPG_QUALITY = 92
+INGREDIENTS_PLACEHOLDER = "Keine Angaben"
+INGREDIENTS_BLOCK_HEIGHT = 226
+INGREDIENTS_FONT_MAX_SIZE = 30
+INGREDIENTS_FONT_MIN_SIZE = 6
+INGREDIENTS_LINE_GAP = 3
 
 RENDERABLE_STATUSES: tuple[str, ...] = (STATUS_OK, STATUS_OK_WITH_WARNINGS)
 RENDERABLE_CATEGORIES: tuple[str, ...] = (NUTRITION, MIXED)
@@ -101,6 +106,7 @@ def render_nutrition_jpgs(
                 output_path=output_path,
                 product_id=record.product_id,
                 product_name=record.product_name,
+                ingredients_text=record.ingredients_text,
                 extracted_nutrition=record.extracted_nutrition,
                 status=record.status,
                 parsed_fields_count=record.parsed_fields_count,
@@ -193,6 +199,7 @@ def render_nutrition_jpg(
     output_path: Path,
     product_id: str,
     product_name: str,
+    ingredients_text: str | None,
     extracted_nutrition: Mapping[str, float | int | None],
     status: str,
     parsed_fields_count: int,
@@ -218,14 +225,43 @@ def render_nutrition_jpg(
         fill=TEXT_COLOR,
         font=row_font,
     )
+
+    ingredients_left = outer_margin
+    ingredients_right = width - outer_margin
+    ingredients_top = meta_y + 86
+    ingredients_bottom = ingredients_top + INGREDIENTS_BLOCK_HEIGHT
+
+    draw.rectangle(
+        (ingredients_left, ingredients_top, ingredients_right, ingredients_bottom),
+        outline=TEXT_COLOR,
+        width=2,
+    )
     draw.text(
-        (outer_margin, meta_y + 84),
-        f"Status: {status} | Parsed Fields: {parsed_fields_count}",
+        (ingredients_left + 16, ingredients_top + 10),
+        "Zutaten",
         fill=TEXT_COLOR,
-        font=row_font,
+        font=header_font,
     )
 
-    table_top = meta_y + 150
+    content_top = ingredients_top + 56
+    content_width = ingredients_right - ingredients_left - 32
+    content_height = ingredients_bottom - content_top - 10
+    ingredients_font, wrapped_lines, line_height, _ = _compute_ingredients_layout(
+        draw=draw,
+        ingredients_text=ingredients_text,
+        max_width=content_width,
+        max_height=content_height,
+    )
+
+    for line_index, line_text in enumerate(wrapped_lines):
+        draw.text(
+            (ingredients_left + 16, content_top + line_index * (line_height + INGREDIENTS_LINE_GAP)),
+            line_text,
+            fill=TEXT_COLOR,
+            font=ingredients_font,
+        )
+
+    table_top = ingredients_bottom + 22
     table_left = outer_margin
     table_right = width - outer_margin
     table_bottom = height - outer_margin
@@ -287,6 +323,139 @@ def _safe_filename(product_id: str) -> str:
     return cleaned or "unknown"
 
 
+def _compute_ingredients_layout(
+    draw: ImageDraw.ImageDraw,
+    ingredients_text: str | None,
+    max_width: int,
+    max_height: int,
+) -> tuple[ImageFont.ImageFont, tuple[str, ...], int, int]:
+    normalized = _normalize_ingredients_text(ingredients_text)
+
+    for font_size in range(INGREDIENTS_FONT_MAX_SIZE, INGREDIENTS_FONT_MIN_SIZE - 1, -1):
+        font = _load_font_at_size(font_size)
+        wrapped = _wrap_text_by_width(
+            draw=draw,
+            font=font,
+            text=normalized,
+            max_width=max_width,
+        )
+        if not wrapped:
+            wrapped = [INGREDIENTS_PLACEHOLDER]
+
+        line_height = _measure_line_height(font)
+        content_height_used = _measure_content_height(line_height, len(wrapped))
+        if content_height_used <= max_height:
+            return font, tuple(wrapped), line_height, content_height_used
+
+    fallback_font = _load_font_at_size(INGREDIENTS_FONT_MIN_SIZE)
+    fallback_wrapped = _wrap_text_by_width(
+        draw=draw,
+        font=fallback_font,
+        text=normalized,
+        max_width=max_width,
+    )
+    if not fallback_wrapped:
+        fallback_wrapped = [INGREDIENTS_PLACEHOLDER]
+    fallback_line_height = _measure_line_height(fallback_font)
+    fallback_used_height = _measure_content_height(fallback_line_height, len(fallback_wrapped))
+    return fallback_font, tuple(fallback_wrapped), fallback_line_height, fallback_used_height
+
+
+def _normalize_ingredients_text(value: str | None) -> str:
+    if value is None:
+        return INGREDIENTS_PLACEHOLDER
+
+    normalized = " ".join(str(value).replace("\n", " ").split())
+    return normalized if normalized else INGREDIENTS_PLACEHOLDER
+
+
+def _wrap_text_by_width(
+    draw: ImageDraw.ImageDraw,
+    font: ImageFont.ImageFont,
+    text: str,
+    max_width: int,
+) -> list[str]:
+    words = text.split(" ")
+    if not words:
+        return [INGREDIENTS_PLACEHOLDER]
+
+    lines: list[str] = []
+    current = ""
+    for word in words:
+        candidate = word if not current else f"{current} {word}"
+        if draw.textlength(candidate, font=font) <= max_width:
+            current = candidate
+            continue
+
+        if current:
+            lines.append(current)
+            current = ""
+
+        if draw.textlength(word, font=font) <= max_width:
+            current = word
+            continue
+
+        split_chunks = _split_long_word(draw=draw, font=font, word=word, max_width=max_width)
+        lines.extend(split_chunks[:-1])
+        current = split_chunks[-1]
+
+    if current:
+        lines.append(current)
+
+    return lines
+
+
+def _split_long_word(
+    draw: ImageDraw.ImageDraw,
+    font: ImageFont.ImageFont,
+    word: str,
+    max_width: int,
+) -> list[str]:
+    chunks: list[str] = []
+    current = ""
+    for char in word:
+        candidate = f"{current}{char}"
+        if draw.textlength(candidate, font=font) <= max_width:
+            current = candidate
+            continue
+
+        if current:
+            chunks.append(current)
+        current = char
+
+    if current:
+        chunks.append(current)
+    return chunks or [word]
+
+
+def _measure_line_height(font: ImageFont.ImageFont) -> int:
+    left, top, right, bottom = font.getbbox("Ag")
+    height = bottom - top
+    return max(1, int(height))
+
+
+def _measure_content_height(line_height: int, line_count: int) -> int:
+    if line_count <= 0:
+        return 0
+    return line_height * line_count + INGREDIENTS_LINE_GAP * (line_count - 1)
+
+
+def _load_font_at_size(size: int) -> ImageFont.ImageFont:
+    candidates = (
+        "arial.ttf",
+        "segoeui.ttf",
+        "DejaVuSans.ttf",
+    )
+
+    for font_name in candidates:
+        try:
+            return ImageFont.truetype(font_name, size)
+        except OSError:
+            continue
+
+    return ImageFont.load_default()
+
+
 def _shard_prefix(safe_product_id: str) -> str:
     normalized = (safe_product_id or "").strip().lower()
     if len(normalized) >= 2:
@@ -301,6 +470,7 @@ def _render_job(job: _RenderJob, placeholder: str) -> Path:
         output_path=job.output_path,
         product_id=job.record.product_id,
         product_name=job.record.product_name,
+        ingredients_text=job.record.ingredients_text,
         extracted_nutrition=job.record.extracted_nutrition,
         status=job.record.status,
         parsed_fields_count=job.record.parsed_fields_count,

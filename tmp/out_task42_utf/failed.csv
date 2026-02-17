@@ -1,4 +1,0 @@
-id,name,category,status,parsed_fields_count,warnings,raw_snippet
-,OhneID,MISSING,FAILED,0,ingestion_reject:missing required field(s): id,Energie 100 kJ
-1003,,MISSING,FAILED,0,ingestion_reject:missing required field(s): name,Energie 90 kJ
-1004,LeerNutr,MISSING,FAILED,0,ingestion_reject:missing required field(s): nutrition_raw_text,

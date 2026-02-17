@@ -35,3 +35,19 @@
 	- `.apm/Memory/Phase_04_Optimization_Acceptance/Task_4_1_Failure_Pattern_Analysis.md`
 	- `.apm/Memory/Phase_04_Optimization_Acceptance/Task_4_2_Rule_Tuning_Loop_Controlled_Rerun.md`
 	- `.apm/Memory/Phase_04_Optimization_Acceptance/Task_4_3_Acceptance_Check_Final_Handover.md`
+
+## Phase 05 – Ingredients-on-JPG Extension Summary
+- Outcome summary: Phase 5 successfully integrated ingredients into the rendering pipeline end-to-end. Optional ingredients ingestion with tolerant header mapping was added, propagation through runtime models was completed, and the `1200x1200` JPG layout now includes a deterministic ingredients block (wrapping, max lines, ellipsis, null-safe fallback). Smoke and larger real-data runs confirmed stable execution, unchanged status/report distributions, zero render failures, and valid JPEG output dimensions. Runtime increased moderately (+272ms smoke, +5163ms full), so rollout is approved with throughput monitoring.
+- Involved Agents: Agent_Ingestion, Agent_Runtime, Agent_Rendering
+- Memory Logs:
+	- `.apm/Memory/Phase_05_Ingredients_on_JPG_Extension/Task_5_1_Ingredients_Field_Ingestion_Mapping.md`
+	- `.apm/Memory/Phase_05_Ingredients_on_JPG_Extension/Task_5_2_Ingredients_Propagation_Through_Pipeline.md`
+	- `.apm/Memory/Phase_05_Ingredients_on_JPG_Extension/Task_5_3_JPG_Layout_Update_with_Ingredients_Block.md`
+	- `.apm/Memory/Phase_05_Ingredients_on_JPG_Extension/Task_5_4_End_to_End_Verification_Delta_Report.md`
+
+## Phase 06 – Renderer Micro-Adjustment Summary
+- Outcome summary: Phase 6 applied focused renderer refinements for ingredients visibility. First, the status header line (`Status | Parsed Fields`) was removed to free vertical space for ingredients. Second, ingredients truncation/ellipsis was replaced by adaptive font sizing so full ingredients content is rendered within the fixed ingredients block while preserving deterministic wrapping and null fallback behavior. JPEG validity (`1200x1200`) and pipeline behavior remained intact.
+- Involved Agents: Agent_Rendering
+- Memory Logs:
+	- `.apm/Memory/Phase_06_Renderer_Micro_Adjustment/Task_6_1_Remove_Status_Line_and_Expand_Ingredients_Space.md`
+	- `.apm/Memory/Phase_06_Renderer_Micro_Adjustment/Task_6_2_Full_Ingredients_Visibility_via_Adaptive_Text_Size.md`

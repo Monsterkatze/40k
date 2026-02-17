@@ -1,8 +1,0 @@
-2026-02-13 08:38:22 | INFO | CLI startup complete
-2026-02-13 08:38:22 | INFO | Runtime configuration: input='C:\Users\User\Documents\40k\fixtures\task_1_2\missing_header.csv', output='C:\Users\User\Documents\40k\tmp\out_task13_bad', workers=6, resume=True, limit=10
-2026-02-13 08:38:22 | INFO | Run log file: C:\Users\User\Documents\40k\tmp\out_task13_bad\run.log
-2026-02-13 08:38:22 | ERROR | Fatal ingestion configuration error: Required header(s) missing after normalization: nutrition raw text. Available: ['id', 'name', 'beschreibung']
-2026-02-13 08:38:38 | INFO | CLI startup complete
-2026-02-13 08:38:38 | INFO | Runtime configuration: input='C:\Users\User\Documents\40k\fixtures\task_1_2\missing_header.csv', output='C:\Users\User\Documents\40k\tmp\out_task13_bad', workers=6, resume=True, limit=10
-2026-02-13 08:38:38 | INFO | Run log file: C:\Users\User\Documents\40k\tmp\out_task13_bad\run.log
-2026-02-13 08:38:38 | ERROR | Fatal ingestion configuration error: Required header(s) missing after normalization: nutrition raw text. Available: ['id', 'name', 'beschreibung']

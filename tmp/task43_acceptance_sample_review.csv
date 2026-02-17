@@ -1,3 +1,0 @@
-sample_rank,product_id,product_name,status,parsed_fields_count,manual_correct,manual_notes
-1,A7,Produkt B,OK,7,yes,Core extracted values align with visible raw-text numeric tokens.
-2,28274,Produkt A,OK,7,yes,Core extracted values align with visible raw-text numeric tokens.

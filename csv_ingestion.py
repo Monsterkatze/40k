@@ -21,6 +21,7 @@ class NormalizedRecord:
     product_id: str
     product_name: str
     nutrition_raw_text: str
+    ingredients_text: str | None
     row_number: int
 
 
@@ -157,6 +158,29 @@ def _resolve_header_mapping(fieldnames: list[str]) -> dict[str, str]:
             ("energie", "nahr"),
         ),
     )
+    ingredients_column = _pick_first_match(
+        original_by_normalized,
+        explicit_aliases={
+            "zutaten",
+            "zutatenliste",
+            "zutatenangaben",
+            "inhaltsstoffe",
+            "inhaltsstoff",
+            "ingredients",
+            "ingredient",
+            "ingredientlist",
+            "ingredientslist",
+            "bestandteile",
+            "zusammensetzung",
+        },
+        token_aliases=(
+            ("zutat",),
+            ("inhalts", "stoff"),
+            ("ingredient",),
+            ("bestandteil",),
+            ("zusammen", "setzung"),
+        ),
+    )
 
     missing: list[str] = []
     if id_column is None:
@@ -171,11 +195,16 @@ def _resolve_header_mapping(fieldnames: list[str]) -> dict[str, str]:
             f"{', '.join(missing)}. Available: {fieldnames}"
         )
 
-    return {
+    mapping: dict[str, str] = {
         "id": id_column,
         "name": name_column,
         "nutrition_raw_text": nutrition_column,
     }
+
+    if ingredients_column is not None:
+        mapping["ingredients_text"] = ingredients_column
+
+    return mapping
 
 
 def _normalize_row(
@@ -186,6 +215,10 @@ def _normalize_row(
     raw_id = (row.get(mapping["id"]) or "").strip()
     raw_name = (row.get(mapping["name"]) or "").strip()
     raw_nutrition = (row.get(mapping["nutrition_raw_text"]) or "").strip()
+    raw_ingredients = ""
+    if "ingredients_text" in mapping:
+        raw_ingredients = row.get(mapping["ingredients_text"]) or ""
+    normalized_ingredients = _normalize_optional_ingredients_text(raw_ingredients)
 
     missing_fields: list[str] = []
     if not raw_id:
@@ -203,6 +236,7 @@ def _normalize_row(
             product_id=raw_id,
             product_name=raw_name,
             nutrition_raw_text=raw_nutrition,
+            ingredients_text=normalized_ingredients,
             row_number=row_number,
         ),
         None,
@@ -241,3 +275,8 @@ def _normalize_header(value: str) -> str:
     decomposed = unicodedata.normalize("NFKD", lowered)
     without_diacritics = "".join(ch for ch in decomposed if not unicodedata.combining(ch))
     return re.sub(r"[^a-z0-9]+", "", without_diacritics)
+
+
+def _normalize_optional_ingredients_text(value: str) -> str | None:
+    collapsed = re.sub(r"\s+", " ", value.strip())
+    return collapsed or None

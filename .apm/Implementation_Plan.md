@@ -1,6 +1,6 @@
 # Nährwert-JPG Generator – APM Implementation Plan
 **Memory Strategy:** Dynamic-MD
-**Last Modification:** Updated Task 4.2 scope based on Task 4.1 findings (short-profile status tuning, parser warning-noise reduction, ingestion-reject failure surfacing).
+**Last Modification:** Added Task 6.2 to remove ingredients truncation and fit full ingredients text via adaptive font sizing.
 **Project Overview:** Ein einmalig genutztes lokales Python-CLI verarbeitet eine große Produkt-CSV (~40k), klassifiziert und parst inkonsistente Nährwerttexte, validiert Ergebnisse, rendert nur bei verwertbaren Nährwerten standardisierte 1200x1200 JPGs, und erstellt Reports inklusive separater Review/Failed-Listen.
 
 ## Phase 1: Audit & Foundations
@@ -135,4 +135,62 @@
 1. Ziehe eine zufällige Stichprobe von 200 Produkten aus den automatisch verarbeiteten Fällen.
 2. Dokumentiere manuelle Korrektheitsprüfung und berechne Trefferquote (Ziel mindestens 160/200 korrekt).
 3. Erstelle Abschlusszusammenfassung mit finalen KPIs, offenen Restfällen und klarer One-off-Handover-Notiz.
+
+## Phase 5: Ingredients-on-JPG Extension
+
+### Task 5.1 – Ingredients Field Ingestion Mapping - Agent_Ingestion
+**Objective:** Zutatenwerte aus CSV robust erfassen und im normalisierten Datensatz verfügbar machen.
+**Output:** Erweiterter normalisierter Datensatz mit Zutatenfeld plus kompatible Header-Mapping-Logik.
+**Guidance:** Nutze bestehende Encoding-/Delimiter-Resilienz; Änderung muss rückwärtskompatibel bleiben, falls keine Zutaten-Spalte vorhanden ist.
+1. Erweitere Header-Erkennung um Zutaten-Aliase (z. B. `Zutaten`, `Ingredients`, encoding-artefakt Varianten).
+2. Ergänze `NormalizedRecord` um ein optionales Zutatenfeld mit deterministischer Normalisierung (trim, whitespace cleanup).
+3. Stelle sicher, dass fehlende Zutaten nicht als Ingestion-Fehler gelten und den bisherigen Flow nicht brechen.
+4. Ergänze Logging/Stats nur soweit nötig, damit Verfügbarkeit des Zutatenfelds nachvollziehbar bleibt.
+
+### Task 5.2 – Ingredients Propagation Through Pipeline - Agent_Runtime
+**Objective:** Zutaten vom Ingestion-Layer bis zum Renderer-Aufruf durchreichen.
+**Output:** Pipeline-kompatible Datensatzweitergabe, sodass Renderer pro Produkt Zutateninhalt konsumieren kann.
+**Guidance:** **Depends on: Task 5.1 Output by Agent_Ingestion**; keine Änderung der bestehenden Status-/Reporting-Semantik.
+1. Erweitere Zwischenmodelle (`ClassifiedRecord`/Serialisierung) um optionales Zutatenfeld.
+2. Führe Zutatenwerte durch den aktuellen End-to-End-Flow ohne Einfluss auf Klassifikation, Parsing, Validation und Status.
+3. Stelle sicher, dass JSONL-Artefakte rückwärtskompatibel lesbar bleiben.
+4. Halte Laufzeiten/Fehlerbehandlung unverändert robust.
+
+### Task 5.3 – JPG Layout Update with Ingredients Block - Agent_Rendering
+**Objective:** Auf Nährwert-JPGs zusätzlich einen lesbaren Zutatenblock anzeigen.
+**Output:** Aktualisierter 1200x1200-Renderer mit deterministischem Zutaten-Layout (Umbruch + Kürzung).
+**Guidance:** **Depends on: Task 5.2 Output by Agent_Runtime**; bestehendes Nährwert-Layout darf nicht unlesbar werden.
+1. Ergänze im Renderer einen Zutatenbereich mit fester max. Zeilenanzahl und Ellipsis bei Überlänge.
+2. Nutze null-sicheres Fallback (z. B. Placeholder), wenn keine Zutaten vorliegen.
+3. Behalte bestehende Sharding-/Batch-Renderlogik unverändert bei.
+4. Verifiziere JPG-Ausgabe weiterhin als `1200x1200` bei repräsentativen Fällen (mit/ohne lange Zutatenliste).
+
+### Task 5.4 – End-to-End Verification & Delta Report - Agent_Runtime
+**Objective:** Erweiterung auf realen CSV-Daten validieren und Auswirkungen dokumentieren.
+**Output:** Verifizierter Lauf mit Zutaten auf JPG sowie kompakter Delta-Bericht (vorher/nachher).
+**Guidance:** **Depends on: Task 5.3 Output by Agent_Rendering**; nutze Smoke + Vollrun-ähnliche Verifikation.
+1. Führe einen Smoke-Run und einen größeren Lauf mit Zutaten-Spalte aus.
+2. Prüfe Artefakte: JPGs zeigen Zutatenblock korrekt, Run bleibt stabil, bestehende Reports bleiben konsistent.
+3. Dokumentiere Delta-Kennzahlen (z. B. Laufzeit, Render-Erfolg, Warnungsverhalten) und bekannte Einschränkungen.
+4. Lege einen kurzen Abschlussbericht für Freigabeentscheidung ab.
+
+## Phase 6: Renderer Micro-Adjustment
+
+### Task 6.1 – Remove Status Line and Expand Ingredients Space - Agent_Rendering
+**Objective:** Mehr Platz für Zutaten im JPG schaffen, indem die Statuszeile entfernt wird.
+**Output:** Aktualisierter Renderer ohne `Status | Parsed Fields`-Zeile und mit einer zusätzlichen Zutatenzeile.
+**Guidance:** **Depends on: Task 5.3 Output by Agent_Rendering**; Layout muss weiterhin deterministisch und 1200x1200-konform bleiben.
+1. Entferne die Statuszeile im Headerbereich (`Status: ... | Parsed Fields: ...`) aus der JPG-Ausgabe.
+2. Nutze den gewonnenen vertikalen Platz vollständig für den Zutatenblock (eine zusätzliche sichtbare Zeile).
+3. Behalte Umbruch-/Ellipsis-Logik und Null-Fallback im Zutatenblock unverändert robust.
+4. Verifiziere weiterhin gültige JPEG-Ausgabe mit exakt `1200x1200` bei kurzen/langen/null Zutaten.
+
+### Task 6.2 – Full Ingredients Visibility via Adaptive Text Size - Agent_Rendering
+**Objective:** Zutaten vollständig anzeigen, ohne inhaltliche Kürzung/Abbruch im Zutatenblock.
+**Output:** Renderer mit adaptiver Zutaten-Schriftgröße, sodass gesamte Zutatenliste in den vorgesehenen Block passt.
+**Guidance:** **Depends on: Task 6.1 Output by Agent_Rendering**; keine Ellipsis/Truncation mehr für Zutateninhalt, deterministisches Verhalten beibehalten.
+1. Ersetze Zutaten-Truncation durch adaptive Schriftgrößenlogik, die den vollständigen Zutateninhalt innerhalb des Zutatenbereichs darstellt.
+2. Behalte deterministischen Zeilenumbruch und Null-Fallback bei (`Keine Angaben`).
+3. Stelle sicher, dass der Nährwerttabellenbereich und Canvas-Größe (`1200x1200`) unverändert stabil bleiben.
+4. Verifiziere mit kurzen, langen und sehr langen Zutatenlisten, dass kein inhaltlicher Abbruch mehr erfolgt.
 

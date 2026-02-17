@@ -1,9 +1,0 @@
-2026-02-13 08:55:11 | INFO | CLI startup complete
-2026-02-13 08:55:11 | INFO | Runtime configuration: input='C:\Users\User\Documents\40k\fixtures\task_1_2\cp1252_fallback.csv', output='C:\Users\User\Documents\40k\tmp\out_task22_cp', workers=6, resume=True, limit=10
-2026-02-13 08:55:11 | INFO | Run log file: C:\Users\User\Documents\40k\tmp\out_task22_cp\run.log
-2026-02-13 08:55:11 | WARNING | Encoding 'utf-8-sig' failed with decode error: 'utf-8' codec can't decode byte 0xc3 in position 23: invalid continuation byte
-2026-02-13 08:55:11 | INFO | CSV ingestion started with encoding=cp1252 header_map={'id': 'ArtikelID', 'name': 'Bezeichnung', 'nutrition_raw_text': 'NÃhrwerte'}
-2026-02-13 08:55:11 | INFO | Classification completed | output=C:\Users\User\Documents\40k\tmp\out_task22_cp\classified_records.jsonl classified=2 categories={'MISSING': 0, 'INGREDIENTS': 0, 'NUTRITION': 2, 'MIXED': 0, 'UNKNOWN': 0}
-2026-02-13 08:55:11 | INFO | Text normalization completed | records=2 warning_count=0
-2026-02-13 08:55:11 | INFO | Nutrition extraction completed | records=2 warning_count=0
-2026-02-13 08:55:11 | INFO | CSV ingestion completed | encoding=cp1252 total=2 valid=2 skipped=0

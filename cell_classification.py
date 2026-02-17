@@ -60,6 +60,7 @@ class ClassifiedRecord:
     product_id: str
     product_name: str
     nutrition_raw_text: str
+    ingredients_text: str | None
     nutrition_normalized_text: str
     nutrition_search_text: str
     row_number: int
@@ -81,6 +82,7 @@ class ClassifiedRecord:
                 "product_id": self.product_id,
                 "product_name": self.product_name,
                 "nutrition_raw_text": self.nutrition_raw_text,
+                "ingredients_text": self.ingredients_text,
                 "nutrition_normalized_text": self.nutrition_normalized_text,
                 "nutrition_search_text": self.nutrition_search_text,
                 "row_number": self.row_number,
@@ -158,6 +160,7 @@ def classify_record(
         product_id=record.product_id,
         product_name=record.product_name,
         nutrition_raw_text=record.nutrition_raw_text,
+        ingredients_text=record.ingredients_text,
         nutrition_normalized_text=normalized_text,
         nutrition_search_text=search_text,
         row_number=record.row_number,
