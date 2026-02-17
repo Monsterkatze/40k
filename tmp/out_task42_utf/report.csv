@@ -1,0 +1,3 @@
+id,name,category,status,parsed_fields_count,warnings,raw_snippet
+1001,Apfel,NUTRITION,OK_WITH_WARNINGS,2,minimal_profile_ok,"Energie 200 kJ, Fett 1 g"
+1005,Brot,NUTRITION,NEEDS_REVIEW,1,minimal_profile_energy_only,Brennwert 300 kJ

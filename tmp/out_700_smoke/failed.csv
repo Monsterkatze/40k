@@ -1,0 +1,7 @@
+id,name,category,status,parsed_fields_count,warnings,raw_snippet
+28434,Lindt Excellence Edelbitter 85 Prozent Kakao 4er Packung (4 x 100 g),MISSING,FAILED,0,ingestion_reject:missing required field(s): nutrition_raw_text,
+28681,"Lindt & Sprüngli Knusper Minis, 1er Pack (1 x 200 g)",MISSING,FAILED,0,ingestion_reject:missing required field(s): nutrition_raw_text,
+32623,Lindt Vollmilch Schokoladen Stick besonders feinschmelzend 40g,MISSING,FAILED,0,ingestion_reject:missing required field(s): nutrition_raw_text,
+32925,"Lindt & Sprüngli Hauchdünne Täfelchen, Edelbitter, 125 g",MISSING,FAILED,0,ingestion_reject:missing required field(s): nutrition_raw_text,
+33161,"Lindt & Sprüngli Fruehlings-Mandeln, 3er Pack (3 x 100 g)",MISSING,FAILED,0,ingestion_reject:missing required field(s): nutrition_raw_text,
+33212,Lindt & Sprüngli Alpenvollmilch Extra 300g 4er Pack,MISSING,FAILED,0,ingestion_reject:missing required field(s): nutrition_raw_text,

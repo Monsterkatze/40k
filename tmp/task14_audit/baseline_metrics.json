@@ -1,0 +1,77 @@
+{
+  "task_ref": "Task 1.4 - Audit Report & Baseline Metrics",
+  "source_classified_files": [
+    "tmp/out_task13_cp/classified_records.jsonl",
+    "tmp/out_task13_utf/classified_records.jsonl"
+  ],
+  "source_run_logs": [
+    "tmp/out_task13_bad/run.log",
+    "tmp/out_task13_cp/run.log",
+    "tmp/out_task13_utf/run.log"
+  ],
+  "record_count": 4,
+  "category_distribution": {
+    "MISSING": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "INGREDIENTS": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "NUTRITION": {
+      "count": 4,
+      "pct": 100.0
+    },
+    "MIXED": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "UNKNOWN": {
+      "count": 0,
+      "pct": 0.0
+    }
+  },
+  "rule_applied_distribution": {
+    "nutrition_min2": 4
+  },
+  "top_nutrition_signal_combinations": [
+    {
+      "signals": [
+        "energie",
+        "fett",
+        "kj",
+        "unit_amount"
+      ],
+      "count": 3
+    },
+    {
+      "signals": [
+        "brennwert",
+        "kj",
+        "unit_amount"
+      ],
+      "count": 1
+    }
+  ],
+  "clusters": {
+    "unknown_samples": [],
+    "mixed_samples": [],
+    "weak_nutrition_samples": [],
+    "encoding_affected_data_samples": [],
+    "encoding_affected_log_evidence": [
+      {
+        "source": "tmp/out_task13_cp/run.log",
+        "line": "2026-02-13 08:38:20 | WARNING | Encoding 'utf-8-sig' failed with decode error: 'utf-8' codec can't decode byte 0xc3 in position 23: invalid continuation byte"
+      },
+      {
+        "source": "tmp/out_task13_cp/run.log",
+        "line": "2026-02-13 08:38:20 | INFO | CSV ingestion started with encoding=cp1252 header_map={'id': 'ArtikelID', 'name': 'Bezeichnung', 'nutrition_raw_text': 'NÃhrwerte'}"
+      }
+    ]
+  },
+  "interpretation_notes": [
+    "Current ingestion-gated flow skips rows with empty nutrition_raw_text before classification, so MISSING may remain zero in baseline.",
+    "Baseline is deterministic: category assignment depends only on static signal sets and priority logic."
+  ]
+}

@@ -1,0 +1,49 @@
+[
+  {
+    "input": "Energie 2.294,00 kJ",
+    "normalized_text": "energie 2294.00 kj",
+    "search_text": "energie 2294.00 kj",
+    "tokens": [
+      "energie",
+      "2294.00",
+      "kj"
+    ],
+    "warnings": []
+  },
+  {
+    "input": "Fett\t 3,50 g",
+    "normalized_text": "fett 3.50 g",
+    "search_text": "fett 3.50 g",
+    "tokens": [
+      "fett",
+      "3.50",
+      "g"
+    ],
+    "warnings": []
+  },
+  {
+    "input": "\"Zucker\" 12,4 g",
+    "normalized_text": "zucker 12.4 g",
+    "search_text": "zucker 12.4 g",
+    "tokens": [
+      "zucker",
+      "12.4",
+      "g"
+    ],
+    "warnings": []
+  },
+  {
+    "input": "Protein 1,2,3 g",
+    "normalized_text": "protein 1.2,3 g",
+    "search_text": "protein 1.2 3 g",
+    "tokens": [
+      "protein",
+      "1.2",
+      "3",
+      "g"
+    ],
+    "warnings": [
+      "unparseable_numeric_fragment:1,2,3"
+    ]
+  }
+]

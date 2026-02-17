@@ -1,0 +1,3 @@
+id,name,category,status,parsed_fields_count,warnings,raw_snippet
+28274,Produkt A,NUTRITION,OK_WITH_WARNINGS,7,unreadable_field:kcal | warnings_present,Energie 400 kJ 96 kcal Fett 2 g Kohlenhydrate 10 g Zucker 5 g Eiweiss 3 g Salz 0.4 g
+A7,Produkt B,NUTRITION,OK_WITH_WARNINGS,7,unreadable_field:kcal | warnings_present,Energie 500 kJ 120 kcal Fett 5 g Kohlenhydrate 12 g Zucker 7 g Eiweiss 4 g Salz 0.6 g

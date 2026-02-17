@@ -1,0 +1,23 @@
+2026-02-13 09:27:46 | INFO | CLI startup complete
+2026-02-13 09:27:46 | INFO | Runtime configuration: input='C:\Users\User\Documents\40k\tmp\task32_input.csv', output='C:\Users\User\Documents\40k\tmp\out_task42_full', workers=4, resume=False, limit=none
+2026-02-13 09:27:46 | INFO | Run log file: C:\Users\User\Documents\40k\tmp\out_task42_full\run.log
+2026-02-13 09:27:46 | INFO | Pipeline stage started | stage=ingestion
+2026-02-13 09:27:46 | INFO | Pipeline stage started | stage=classification_normalization_parsing_validation
+2026-02-13 09:27:46 | INFO | CSV ingestion started with encoding=utf-8-sig header_map={'id': 'id', 'name': 'name', 'nutrition_raw_text': 'nutrition_raw_text'}
+2026-02-13 09:27:46 | INFO | Pipeline stage completed | stage=classification_normalization_parsing_validation records=3
+2026-02-13 09:27:46 | INFO | Pipeline stage started | stage=persistence_classified_records
+2026-02-13 09:27:46 | INFO | Pipeline stage completed | stage=persistence_classified_records output=C:\Users\User\Documents\40k\tmp\out_task42_full\classified_records.jsonl records=3
+2026-02-13 09:27:46 | INFO | Pipeline stage started | stage=reporting
+2026-02-13 09:27:46 | INFO | Pipeline stage completed | stage=reporting
+2026-02-13 09:27:46 | INFO | Pipeline stage started | stage=rendering
+2026-02-13 09:27:46 | INFO | Pipeline stage completed | stage=rendering
+2026-02-13 09:27:46 | INFO | Classification completed | output=C:\Users\User\Documents\40k\tmp\out_task42_full\classified_records.jsonl classified=3 categories={'MISSING': 0, 'INGREDIENTS': 0, 'NUTRITION': 3, 'MIXED': 0, 'UNKNOWN': 0}
+2026-02-13 09:27:46 | INFO | Text normalization completed | records=3 warning_count=0
+2026-02-13 09:27:46 | INFO | Nutrition extraction completed | records=3 warning_count=0
+2026-02-13 09:27:46 | INFO | Validation/status assignment completed | records=3 warning_count=0 statuses={'OK': 2, 'NEEDS_REVIEW': 1}
+2026-02-13 09:27:46 | INFO | Reporting completed | report=C:\Users\User\Documents\40k\tmp\out_task42_full\report.csv needs_review=C:\Users\User\Documents\40k\tmp\out_task42_full\needs_review.csv failed=C:\Users\User\Documents\40k\tmp\out_task42_full\failed.csv
+2026-02-13 09:27:46 | INFO | Reporting summary | categories={'MISSING': 0, 'INGREDIENTS': 0, 'NUTRITION': 3, 'MIXED': 0, 'UNKNOWN': 0} statuses={'OK': 2, 'OK_WITH_WARNINGS': 0, 'NEEDS_REVIEW': 1, 'FAILED': 0}
+2026-02-13 09:27:46 | INFO | Rendering completed | output_root=C:\Users\User\Documents\40k\tmp\out_task42_full\output eligible_total=2 rendered=2 skipped_existing=0 failed_render=0
+2026-02-13 09:27:46 | INFO | CSV ingestion completed | encoding=utf-8-sig total=3 valid=3 skipped=0
+2026-02-13 09:27:46 | INFO | CSV ingestion reject visibility | surfaced_failed_rows=0
+2026-02-13 09:27:46 | INFO | Pipeline run completed | duration_ms=65 records_processed=3 ingest_valid=3 ingest_skipped=0 rendered=2 render_skipped_existing=0 render_skipped_non_renderable=1 render_failed=0

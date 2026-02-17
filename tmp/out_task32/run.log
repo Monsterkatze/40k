@@ -1,0 +1,28 @@
+2026-02-13 09:16:08 | INFO | CLI startup complete
+2026-02-13 09:16:08 | INFO | Runtime configuration: input='C:\Users\User\Documents\40k\tmp\task32_input.csv', output='C:\Users\User\Documents\40k\tmp\out_task32', workers=4, resume=True, limit=none
+2026-02-13 09:16:08 | INFO | Run log file: C:\Users\User\Documents\40k\tmp\out_task32\run.log
+2026-02-13 09:16:08 | INFO | CSV ingestion started with encoding=utf-8-sig header_map={'id': 'id', 'name': 'name', 'nutrition_raw_text': 'nutrition_raw_text'}
+2026-02-13 09:16:08 | WARNING | Parser warnings for row=2 product_id=28274 warnings=['unreadable_field:kcal']
+2026-02-13 09:16:08 | WARNING | Parser warnings for row=3 product_id=A7 warnings=['unreadable_field:kcal']
+2026-02-13 09:16:08 | INFO | Classification completed | output=C:\Users\User\Documents\40k\tmp\out_task32\classified_records.jsonl classified=3 categories={'MISSING': 0, 'INGREDIENTS': 0, 'NUTRITION': 3, 'MIXED': 0, 'UNKNOWN': 0}
+2026-02-13 09:16:08 | INFO | Text normalization completed | records=3 warning_count=0
+2026-02-13 09:16:08 | INFO | Nutrition extraction completed | records=3 warning_count=2
+2026-02-13 09:16:08 | INFO | Validation/status assignment completed | records=3 warning_count=0 statuses={'OK_WITH_WARNINGS': 2, 'NEEDS_REVIEW': 1}
+2026-02-13 09:16:08 | INFO | Reporting completed | report=C:\Users\User\Documents\40k\tmp\out_task32\report.csv needs_review=C:\Users\User\Documents\40k\tmp\out_task32\needs_review.csv failed=C:\Users\User\Documents\40k\tmp\out_task32\failed.csv
+2026-02-13 09:16:08 | INFO | Reporting summary | categories={'MISSING': 0, 'INGREDIENTS': 0, 'NUTRITION': 3, 'MIXED': 0, 'UNKNOWN': 0} statuses={'OK': 0, 'OK_WITH_WARNINGS': 2, 'NEEDS_REVIEW': 1, 'FAILED': 0}
+2026-02-13 09:16:08 | INFO | Rendering completed | output_root=C:\Users\User\Documents\40k\tmp\out_task32\output eligible_total=2 rendered=2 skipped_existing=0 failed_render=0
+2026-02-13 09:16:08 | INFO | CSV ingestion completed | encoding=utf-8-sig total=3 valid=3 skipped=0
+2026-02-13 09:16:08 | INFO | CLI startup complete
+2026-02-13 09:16:08 | INFO | Runtime configuration: input='C:\Users\User\Documents\40k\tmp\task32_input.csv', output='C:\Users\User\Documents\40k\tmp\out_task32', workers=4, resume=True, limit=none
+2026-02-13 09:16:08 | INFO | Run log file: C:\Users\User\Documents\40k\tmp\out_task32\run.log
+2026-02-13 09:16:08 | INFO | CSV ingestion started with encoding=utf-8-sig header_map={'id': 'id', 'name': 'name', 'nutrition_raw_text': 'nutrition_raw_text'}
+2026-02-13 09:16:08 | WARNING | Parser warnings for row=2 product_id=28274 warnings=['unreadable_field:kcal']
+2026-02-13 09:16:08 | WARNING | Parser warnings for row=3 product_id=A7 warnings=['unreadable_field:kcal']
+2026-02-13 09:16:08 | INFO | Classification completed | output=C:\Users\User\Documents\40k\tmp\out_task32\classified_records.jsonl classified=3 categories={'MISSING': 0, 'INGREDIENTS': 0, 'NUTRITION': 3, 'MIXED': 0, 'UNKNOWN': 0}
+2026-02-13 09:16:08 | INFO | Text normalization completed | records=3 warning_count=0
+2026-02-13 09:16:08 | INFO | Nutrition extraction completed | records=3 warning_count=2
+2026-02-13 09:16:08 | INFO | Validation/status assignment completed | records=3 warning_count=0 statuses={'OK_WITH_WARNINGS': 2, 'NEEDS_REVIEW': 1}
+2026-02-13 09:16:08 | INFO | Reporting completed | report=C:\Users\User\Documents\40k\tmp\out_task32\report.csv needs_review=C:\Users\User\Documents\40k\tmp\out_task32\needs_review.csv failed=C:\Users\User\Documents\40k\tmp\out_task32\failed.csv
+2026-02-13 09:16:08 | INFO | Reporting summary | categories={'MISSING': 0, 'INGREDIENTS': 0, 'NUTRITION': 3, 'MIXED': 0, 'UNKNOWN': 0} statuses={'OK': 0, 'OK_WITH_WARNINGS': 2, 'NEEDS_REVIEW': 1, 'FAILED': 0}
+2026-02-13 09:16:08 | INFO | Rendering completed | output_root=C:\Users\User\Documents\40k\tmp\out_task32\output eligible_total=2 rendered=0 skipped_existing=2 failed_render=0
+2026-02-13 09:16:08 | INFO | CSV ingestion completed | encoding=utf-8-sig total=3 valid=3 skipped=0

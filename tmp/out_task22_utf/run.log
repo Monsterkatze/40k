@@ -1,0 +1,11 @@
+2026-02-13 08:55:05 | INFO | CLI startup complete
+2026-02-13 08:55:05 | INFO | Runtime configuration: input='C:\Users\User\Documents\40k\fixtures\task_1_2\utf8sig_semicolon.csv', output='C:\Users\User\Documents\40k\tmp\out_task22_utf', workers=6, resume=True, limit=10
+2026-02-13 08:55:05 | INFO | Run log file: C:\Users\User\Documents\40k\tmp\out_task22_utf\run.log
+2026-02-13 08:55:05 | INFO | CSV ingestion started with encoding=utf-8-sig header_map={'id': 'Produkt-ID', 'name': 'Produktname', 'nutrition_raw_text': 'Nährwerte'}
+2026-02-13 08:55:05 | WARNING | Skipping row 3: missing required field(s): id
+2026-02-13 08:55:05 | WARNING | Skipping row 4: missing required field(s): name
+2026-02-13 08:55:05 | WARNING | Skipping row 5: missing required field(s): nutrition_raw_text
+2026-02-13 08:55:05 | INFO | Classification completed | output=C:\Users\User\Documents\40k\tmp\out_task22_utf\classified_records.jsonl classified=2 categories={'MISSING': 0, 'INGREDIENTS': 0, 'NUTRITION': 2, 'MIXED': 0, 'UNKNOWN': 0}
+2026-02-13 08:55:05 | INFO | Text normalization completed | records=2 warning_count=0
+2026-02-13 08:55:05 | INFO | Nutrition extraction completed | records=2 warning_count=0
+2026-02-13 08:55:05 | INFO | CSV ingestion completed | encoding=utf-8-sig total=5 valid=2 skipped=3

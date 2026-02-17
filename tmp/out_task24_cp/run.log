@@ -1,0 +1,12 @@
+2026-02-13 09:02:57 | INFO | CLI startup complete
+2026-02-13 09:02:57 | INFO | Runtime configuration: input='C:\Users\User\Documents\40k\fixtures\task_1_2\cp1252_fallback.csv', output='C:\Users\User\Documents\40k\tmp\out_task24_cp', workers=6, resume=True, limit=10
+2026-02-13 09:02:57 | INFO | Run log file: C:\Users\User\Documents\40k\tmp\out_task24_cp\run.log
+2026-02-13 09:02:57 | WARNING | Encoding 'utf-8-sig' failed with decode error: 'utf-8' codec can't decode byte 0xc3 in position 23: invalid continuation byte
+2026-02-13 09:02:57 | INFO | CSV ingestion started with encoding=cp1252 header_map={'id': 'ArtikelID', 'name': 'Bezeichnung', 'nutrition_raw_text': 'NÃhrwerte'}
+2026-02-13 09:02:57 | INFO | Classification completed | output=C:\Users\User\Documents\40k\tmp\out_task24_cp\classified_records.jsonl classified=2 categories={'MISSING': 0, 'INGREDIENTS': 0, 'NUTRITION': 2, 'MIXED': 0, 'UNKNOWN': 0}
+2026-02-13 09:02:57 | INFO | Text normalization completed | records=2 warning_count=0
+2026-02-13 09:02:57 | INFO | Nutrition extraction completed | records=2 warning_count=0
+2026-02-13 09:02:57 | INFO | Validation/status assignment completed | records=2 warning_count=0 statuses={'NEEDS_REVIEW': 2}
+2026-02-13 09:02:57 | INFO | Reporting completed | report=C:\Users\User\Documents\40k\tmp\out_task24_cp\report.csv needs_review=C:\Users\User\Documents\40k\tmp\out_task24_cp\needs_review.csv failed=C:\Users\User\Documents\40k\tmp\out_task24_cp\failed.csv
+2026-02-13 09:02:57 | INFO | Reporting summary | categories={'MISSING': 0, 'INGREDIENTS': 0, 'NUTRITION': 2, 'MIXED': 0, 'UNKNOWN': 0} statuses={'OK': 0, 'OK_WITH_WARNINGS': 0, 'NEEDS_REVIEW': 2, 'FAILED': 0}
+2026-02-13 09:02:57 | INFO | CSV ingestion completed | encoding=cp1252 total=2 valid=2 skipped=0

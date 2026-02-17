@@ -1,0 +1,26 @@
+2026-02-13 09:27:52 | INFO | CLI startup complete
+2026-02-13 09:27:52 | INFO | Runtime configuration: input='C:\Users\User\Documents\40k\fixtures\task_1_2\utf8sig_semicolon.csv', output='C:\Users\User\Documents\40k\tmp\out_task42_utf', workers=4, resume=False, limit=10
+2026-02-13 09:27:52 | INFO | Run log file: C:\Users\User\Documents\40k\tmp\out_task42_utf\run.log
+2026-02-13 09:27:52 | INFO | Pipeline stage started | stage=ingestion
+2026-02-13 09:27:52 | INFO | Pipeline stage started | stage=classification_normalization_parsing_validation
+2026-02-13 09:27:52 | INFO | CSV ingestion started with encoding=utf-8-sig header_map={'id': 'Produkt-ID', 'name': 'Produktname', 'nutrition_raw_text': 'Nährwerte'}
+2026-02-13 09:27:52 | WARNING | Skipping row 3: missing required field(s): id
+2026-02-13 09:27:52 | WARNING | Skipping row 4: missing required field(s): name
+2026-02-13 09:27:52 | WARNING | Skipping row 5: missing required field(s): nutrition_raw_text
+2026-02-13 09:27:52 | INFO | Pipeline stage completed | stage=classification_normalization_parsing_validation records=2
+2026-02-13 09:27:52 | INFO | Pipeline stage started | stage=persistence_classified_records
+2026-02-13 09:27:52 | INFO | Pipeline stage completed | stage=persistence_classified_records output=C:\Users\User\Documents\40k\tmp\out_task42_utf\classified_records.jsonl records=2
+2026-02-13 09:27:52 | INFO | Pipeline stage started | stage=reporting
+2026-02-13 09:27:52 | INFO | Pipeline stage completed | stage=reporting
+2026-02-13 09:27:52 | INFO | Pipeline stage started | stage=rendering
+2026-02-13 09:27:52 | INFO | Pipeline stage completed | stage=rendering
+2026-02-13 09:27:52 | INFO | Classification completed | output=C:\Users\User\Documents\40k\tmp\out_task42_utf\classified_records.jsonl classified=2 categories={'MISSING': 0, 'INGREDIENTS': 0, 'NUTRITION': 2, 'MIXED': 0, 'UNKNOWN': 0}
+2026-02-13 09:27:52 | INFO | Text normalization completed | records=2 warning_count=0
+2026-02-13 09:27:52 | INFO | Nutrition extraction completed | records=2 warning_count=0
+2026-02-13 09:27:52 | INFO | Validation/status assignment completed | records=2 warning_count=0 statuses={'OK_WITH_WARNINGS': 1, 'NEEDS_REVIEW': 1}
+2026-02-13 09:27:52 | INFO | Reporting completed | report=C:\Users\User\Documents\40k\tmp\out_task42_utf\report.csv needs_review=C:\Users\User\Documents\40k\tmp\out_task42_utf\needs_review.csv failed=C:\Users\User\Documents\40k\tmp\out_task42_utf\failed.csv
+2026-02-13 09:27:52 | INFO | Reporting summary | categories={'MISSING': 0, 'INGREDIENTS': 0, 'NUTRITION': 2, 'MIXED': 0, 'UNKNOWN': 0} statuses={'OK': 0, 'OK_WITH_WARNINGS': 1, 'NEEDS_REVIEW': 1, 'FAILED': 3}
+2026-02-13 09:27:52 | INFO | Rendering completed | output_root=C:\Users\User\Documents\40k\tmp\out_task42_utf\output eligible_total=1 rendered=1 skipped_existing=0 failed_render=0
+2026-02-13 09:27:52 | INFO | CSV ingestion completed | encoding=utf-8-sig total=5 valid=2 skipped=3
+2026-02-13 09:27:52 | INFO | CSV ingestion reject visibility | surfaced_failed_rows=3
+2026-02-13 09:27:52 | INFO | Pipeline run completed | duration_ms=54 records_processed=2 ingest_valid=2 ingest_skipped=3 rendered=1 render_skipped_existing=0 render_skipped_non_renderable=1 render_failed=0

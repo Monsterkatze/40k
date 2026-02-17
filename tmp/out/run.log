@@ -1,0 +1,4 @@
+2026-02-13 08:28:52 | INFO | CLI startup complete
+2026-02-13 08:28:52 | INFO | Runtime configuration: input='C:\Users\User\Documents\40k\tmp\input.csv', output='C:\Users\User\Documents\40k\tmp\out', workers=6, resume=True, limit=5
+2026-02-13 08:28:52 | INFO | Run log file: C:\Users\User\Documents\40k\tmp\out\run.log
+2026-02-13 08:28:52 | INFO | Runtime scaffold initialized. Downstream pipeline steps are not yet wired.

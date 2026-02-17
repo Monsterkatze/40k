@@ -1,0 +1,6 @@
+﻿Produkt-ID;Produktname;Nährwerte
+1001;Apfel;Energie 200 kJ, Fett 1 g
+;OhneID;Energie 100 kJ
+1003;;Energie 90 kJ
+1004;LeerNutr;
+1005;Brot;Brennwert 300 kJ; Fett 2 g
